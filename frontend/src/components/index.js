@@ -19,4 +19,6 @@ export { default as About } from './about/About'
 export { default as Contact } from './contact/Contact'
 export { default as FAQ } from './faq/FAQ'
 
+export { default as ChatApp } from './chat/ChatApp'
+
 export { default as PageNotFound } from './util-components/PageNotFound'

@@ -50,6 +50,7 @@ function App() {
                             {/* Add protected routes */}
                             <Link element={<Component.ProtectedRouting />}>
                                 <Link exact path='faqs' element={<Component.FAQ />} />
+                                <Link exact path='chat' element={<Component.ChatApp />} />
                             </Link>
 
                             <Link exact path='/' element={<Component.Home setOnPage={setOnPage} />} />
@@ -62,6 +63,8 @@ function App() {
                             </Link>
                             
                             <Link exact path='rooms' element={<Component.About />} />
+                            
+
                             <Link exact path='rooms/room/:roomid' element={<Room1 />} />
                             
                             <Link exact path='contact' element={<Component.Contact />} />
