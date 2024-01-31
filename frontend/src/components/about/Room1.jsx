@@ -3,6 +3,10 @@ import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import '../../stylesheets/about.css';
+import { Bar } from 'react-chartjs-2';
+import 'chart.js/auto';
+import { Doughnut, Line, Pie } from 'react-chartjs-2';
+// import 'react-chartjs-2/dist/react-chartjs-2.css';
 
 const Room1 = () => {
   const { roomid } = useParams();
@@ -58,14 +62,199 @@ const Room1 = () => {
     }));
   };
 
+  const dataCentralizedDashboard = {
+    labels: ['January', 'February', 'March', 'April', 'May'],
+    datasets: [
+      {
+        label: 'Progress',
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(75,192,192,0.6)',
+        hoverBorderColor: 'rgba(75,192,192,1)',
+        data: [65, 59, 80, 81, 56],
+      },
+    ],
+  };
+
+  const dataTaskManagementSystem = {
+    labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5'],
+    datasets: [
+      {
+        label: 'Completion Status',
+        backgroundColor: 'rgba(255,99,132,0.4)',
+        borderColor: 'rgba(255,99,132,1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(255,99,132,0.6)',
+        hoverBorderColor: 'rgba(255,99,132,1)',
+        data: [80, 72, 90, 60, 75],
+      },
+    ],
+  };
+
+  const dataFamilyMembers = {
+    labels: ['Parent 1', 'Parent 2', 'Child 1', 'Child 2', 'Child 3'],
+    datasets: [
+      {
+        data: [20, 15, 25, 20, 20],
+        backgroundColor: ['red', 'blue', 'green', 'orange', 'purple'],
+        hoverBackgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(255, 206, 86, 0.8)', 'rgba(153, 102, 255, 0.8)'],
+      },
+    ],
+  };
+
+  const dataCostTracking = {
+    labels: ['Expense 1', 'Expense 2', 'Expense 3', 'Expense 4', 'Expense 5'],
+    datasets: [
+      {
+        label: 'Amount Spent',
+        backgroundColor: 'rgba(153,102,255,0.4)',
+        borderColor: 'rgba(153,102,255,1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(153,102,255,0.6)',
+        hoverBorderColor: 'rgba(153,102,255,1)',
+        data: [200, 150, 300, 180, 250],
+      },
+    ],
+  };
+
+  const dataTaskProgressOverTime = {
+    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+    datasets: [
+      {
+        label: 'Task Progress',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: [65, 59, 80, 81, 56],
+      },
+    ],
+  };
+
+  const dataBudgetAllocation = {
+    labels: ['Design', 'Materials', 'Labor', 'Miscellaneous'],
+    datasets: [
+      {
+        data: [30, 40, 20, 10],
+        backgroundColor: ['red', 'blue', 'green', 'orange'],
+        hoverBackgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(255, 206, 86, 0.8)'],
+      },
+    ],
+  };
+  
+  // Pastel color palette
+const pastelColors = [
+  'rgb(255,179,186)',
+  'rgb(255,223,186)',
+  'rga(186,255,201)',
+  'rgb(186,225,255)',
+];
+
+// Function to generate pastel colors for datasets
+const getPastelColors = (count) => {
+  const colors = [];
+  for (let i = 0; i < count; i++) {
+    colors.push(pastelColors[i % pastelColors.length]);
+  }
+  return colors;
+};
+
+// Apply pastel colors to datasets
+const applyPastelColors = (datasets) => {
+  return datasets.map((dataset, index) => ({
+    ...dataset,
+    backgroundColor: getPastelColors(dataset.data.length),
+    borderColor: getPastelColors(dataset.data.length),
+  }));
+};
+
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
   return (
     <div className='my-10'>
       <div className='px-10 flex flex-wrap items-center justify-center'>
-        <div className='px-10 flex flex-wrap items-center justify-center'>
-          <div className='text-3xl w-1/2 text-center'> Room Id : {roomid}</div>
+       <div className="flex flex-wrap justify-center">
+      {/* Card 1: Centralized Dashboard */}
+      <div className='text-3xl w-1/2 text-center'> Room Id : {roomid}</div>
           <p className='text-gray-500 w-full text-center mt-5'>
             Welcome to your room, we help you plan your space well
           </p>
+      <div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+        <div className="p-4">
+          <h2 className="text-xl font-bold text-gray-800">
+            Centralized Dashboard
+          </h2>
+          <Bar data={dataCentralizedDashboard} options={options} />
+        </div>
+      </div>
+
+      {/* Card 2: Task Management System */}
+      <div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+        <div className="p-4">
+          <h2 className="text-xl font-bold text-gray-800">
+            Task Management System
+          </h2>
+          <Bar data={dataTaskManagementSystem} options={options} />
+        </div>
+      </div>
+
+      {/* Card 3: Cost Tracking and Budgeting */}
+      <div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+        <div className="p-4">
+          <h2 className="text-xl font-bold text-gray-800">
+            Cost Tracking and Budgeting
+          </h2>
+          <Bar data={dataCostTracking} options={options} />
+        </div>
+      </div>
+
+      <div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+  <div className="p-4">
+    <h2 className="text-xl font-bold text-gray-800">Budget Allocation</h2>
+    <Doughnut data={{ ...dataBudgetAllocation, datasets: applyPastelColors(dataBudgetAllocation.datasets) }} options={options} />
+  </div>
+</div>
+
+{/* // Card for Task Progress Over Time */}
+<div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+  <div className="p-4">
+    <h2 className="text-xl font-bold text-gray-800">Task Progress Over Time</h2>
+    <div className="h-full">
+      <Line data={{ ...dataTaskProgressOverTime, datasets: applyPastelColors(dataTaskProgressOverTime.datasets) }} options={options} />
+    </div>
+  </div>
+</div>
+
+{/* // Card for Family Members */}
+<div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+  <div className="p-4">
+    <h2 className="text-xl font-bold text-gray-800">Family Members</h2>
+    <Pie data={{ ...dataFamilyMembers, datasets: applyPastelColors(dataFamilyMembers.datasets) }} options={options} />
+  </div>
+</div>
+      
+    </div>
+        <div className='px-10 flex flex-wrap items-center justify-center'>
+       
           <div className='flex flex-wrap items-center justify-center px-20 my-10'>
         <div className="idea_card flex flex-wrap items-center p-5 py-14 w-2/5 m-auto">
           {/* <Link to="room/ax325"> */}
