@@ -1,6 +1,7 @@
-import '../budgeting_forecasting_screen/widgets/listcheckmark_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
+import 'package:intellijinteriors/presentation/gantt_chart_screen/gantt_chart_screen.dart';
+import '../budgeting_forecasting_screen/widgets/listcheckmark_item_widget.dart';
 import 'package:intellijinteriors/core/app_export.dart';
 import 'package:intellijinteriors/widgets/app_bar/appbar_image.dart';
 import 'package:intellijinteriors/widgets/app_bar/appbar_title.dart';
@@ -18,11 +19,18 @@ class BudgetingForecastingScreen extends StatelessWidget {
         appBar: CustomAppBar(
           height: getVerticalSize(53),
           leadingWidth: 40,
-          leading: AppbarImage(
-            height: getSize(24),
-            width: getSize(24),
-            svgPath: ImageConstant.imgMenu,
-            margin: getMargin(left: 16, top: 12, bottom: 17),
+          leading: Builder(
+            builder: (context) => GestureDetector(
+              onTap: () {
+                Scaffold.of(context).openDrawer();
+              },
+              child: AppbarImage(
+                height: getSize(24),
+                width: getSize(24),
+                svgPath: ImageConstant.imgMenu,
+                margin: getMargin(left: 16, top: 12, bottom: 17),
+              ),
+            ),
           ),
           centerTitle: true,
           title: AppbarTitle(
@@ -37,6 +45,54 @@ class BudgetingForecastingScreen extends StatelessWidget {
             ),
           ],
         ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Text(
+                  'Intelli Interiors',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(202, 249, 143, 255),
+                ),
+              ),
+              ListTile(
+                title: Text('Home'),
+                onTap: () {
+                  // Implement the action when Home is tapped
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text('Analytics'),
+                onTap: () {
+                  // Implement the action when Analytics is tapped
+                 Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => GanttChartScreen()));
+                },
+              ),
+              ListTile(
+                title: Text('Rooms'),
+                onTap: () {
+                  // Implement the action when Rooms is tapped
+                  Navigator.pop(context);
+                },
+              ),
+
+               ListTile(
+                title: Text('Communication Hub'),
+                onTap: () {
+                  // Implement the action when Rooms is tapped
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Container(
@@ -45,7 +101,7 @@ class BudgetingForecastingScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
+             children: [
                 Container(
                   height: getVerticalSize(183),
                   width: getHorizontalSize(396),
@@ -239,11 +295,11 @@ class BudgetingForecastingScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       for (String itemName in [
-                        "Cement",
-                        "Paint",
-                        "Wood",
-                        "Lights",
-                        "Steel"
+                        "Cement - Rs 350",
+                        "Paint -  Rs 1500",
+                        "Wood - Rs 200",
+                        "Lights - Rs 2000",
+                        "Steel - Rs 1000 "
                       ])
                         Container(
                           margin: getMargin(bottom: 20),
@@ -256,9 +312,12 @@ class BudgetingForecastingScreen extends StatelessWidget {
                               SizedBox(width: getHorizontalSize(20)),
                               Expanded(
                                 child: Text(
+                                  
                                   itemName,
                                   textAlign: TextAlign.left,
-                                  style: AppStyle.txtGilroyMedium14Black900,
+                                  style: AppStyle.txtGilroyMedium14Black900.copyWith(
+                                    fontSize: 16, // Adjust the font size as needed
+                                  ),
                                 ),
                               ),
                             ],
