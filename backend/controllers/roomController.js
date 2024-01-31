@@ -9,8 +9,6 @@ const asyncHandler = require("express-async-handler");
 const getRoom = asyncHandler(async (req, res) => {
     const { room_id } = req.query;
 
-    console.log(req.query)
-    
     try {
         const room = await Room.findOne({ room_id }).populate('users');
 
@@ -60,10 +58,10 @@ const createRoom = asyncHandler(async (req, res) => {
 const addUser = asyncHandler(async (req, res) => {
     try {
         // Assuming req.body has necessary data for adding a user to a room
-        const { room_id, user_id } = req.body;
+        const { room_id, email } = req.body;
 
         // Check if the user with the given user_id exists
-        const user = await User.findById(user_id);
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
@@ -78,12 +76,12 @@ const addUser = asyncHandler(async (req, res) => {
         }
 
         // Check if the user_id is already in the room
-        if (room.users.includes(user_id)) {
+        if (room.users.includes(user._id)) {
             return res.status(400).json({ error: "User already in the room" });
         }
 
         // Add the user_id to the room
-        room.users.push(user_id);
+        room.users.push(user._id);
 
         user.rooms.push(room._id);
 

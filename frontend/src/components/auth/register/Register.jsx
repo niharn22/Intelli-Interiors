@@ -56,6 +56,7 @@ function Register() {
 		try {
 			await signUp(values.name, values.email, values.password)
 			toast.success('Successfully signed up!')
+
 			navigate("/")
 		} catch (err) {
 			toast.error(processMessage(err.message))
@@ -81,7 +82,7 @@ function Register() {
 							setValues((prev) => ({ ...prev, name: event.target.value }))
 						}
 						placeholder="Enter your name"
-						/>
+					/>
 					<input
 						label="Email"
 						type="email"

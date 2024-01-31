@@ -14,6 +14,7 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../config/Firebase";
+import axios from "axios";
 
 const userAuthContext = createContext();
 
@@ -35,12 +36,12 @@ export function UserAuthContextProvider({ children }) {
           throw new Error(err);
         }
       }
-      
+
     function logOut() {
         return signOut(auth);
     }
 
-    function googleSignIn() {
+function googleSignIn() {
         const googleAuthProvider = new GoogleAuthProvider();
         return signInWithPopup(auth, googleAuthProvider);
     }
@@ -48,6 +49,7 @@ export function UserAuthContextProvider({ children }) {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
             console.log("Auth", currentuser);
+
             setUser(currentuser);
 
             if (currentuser) {

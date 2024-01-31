@@ -11,7 +11,6 @@ import scrollToTop from './utility/scrollToTop';
 import Room1 from './components/about/Room1';
 
 function App() {
-    console.log(process.env.REACT_APP_FIREBASE_API_KEY)
     const [onPage, setOnPage] = useState(1);
     const [notTop, setNotTop] = useState({ header: false, toTopButton: false });
 
