@@ -4,7 +4,7 @@ const Room = require('./Room');
 
 const userSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    lastName: { type: String },
     email: { type: String, required: true },
 	rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Room' }]
 });
