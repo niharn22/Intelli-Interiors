@@ -3,7 +3,7 @@ const { User } = require('./users');
 
 const roomSchema = new mongoose.Schema({
     room_id: { type: String, required: true, unique: true },
-    users: [{ type: mongoose.Schema.Types.ObjectId, ref: User }]
+    users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }]
 });
 
 roomSchema.statics.createRoomModel = function (room_id) {

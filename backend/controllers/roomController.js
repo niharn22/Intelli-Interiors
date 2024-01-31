@@ -1,6 +1,30 @@
+const { default: mongoose } = require('mongoose');
 const Room = require('../model/Room');
 const { User } = require('../model/users')
 const asyncHandler = require("express-async-handler");
+
+// @desc Get a room
+// @route Get /room
+// @access Private
+const getRoom = asyncHandler(async (req, res) => {
+    const { room_id } = req.body;
+
+    try {
+        const room = await Room.findOne({ room_id }).populate('users');
+
+        if (!room) {
+            return res.status(404).json({ message: "Room not found" });
+        }
+
+        console.log(room);
+
+        return res.status(200).json({ room });
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: "Server Error" });
+    }
+});
+
 
 // @desc Create room
 // @route POST /room
@@ -73,4 +97,4 @@ const addUser = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { createRoom, addUser };
+module.exports = { getRoom, createRoom, addUser };
