@@ -39,13 +39,11 @@ const Header = (props) => {
 		<>
 			<header className={(props.notTop ? 'notTop' : '') + (props.onPage === 5 ? 'header__dark' : '')} data-head="top">
 				<div className="logo" style={props.notTop ? { minWidth: '6%', maxWidth: '19rem' } : {}}>
-					<Link to=''>
+				<Link>
 						<img src={logo} alt="Application" title='Application' style={props.notTop ? { width: '90%' } : {}} />
-					</Link>
-					<Link to=''>
-						Application
-					</Link>
+				</Link>
 				</div>
+				
 
 				<ul className={`navbar${(width < 1200 && !navbarActive) ? ' hide' : ''}`}>
 					<li className={`nav-item ${props.onPage === 1 ? 'activePage' : ''}`}>
