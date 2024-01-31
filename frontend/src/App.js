@@ -7,8 +7,6 @@ import * as Component from './components';
 
 import { useState, useEffect } from 'react';
 
-import auth from './store/auth';
-
 import scrollToTop from './utility/scrollToTop';
 import Room1 from './components/about/Room1';
 import axios from 'axios';
@@ -20,6 +18,9 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 function App() {
     const dispatch = useDispatch()
+
+    const user = useSelector(state => state.user.userInfo)
+
     const rooms = useSelector(state => state.room)
 
     useEffect(() => {
@@ -29,7 +30,7 @@ function App() {
             try {
                 const response = await axios.get('http://localhost:3300/rooms', {
                     params: {
-                        email: 'kushalv238@gmail.com',
+                        email: user.email,
                     },
                 });
                 console.log(response)
@@ -41,7 +42,7 @@ function App() {
             }
         }
         getUserRooms();
-    }, [auth])
+    }, [user])
 
     const [onPage, setOnPage] = useState(1);
     const [notTop, setNotTop] = useState({ header: false, toTopButton: false });

@@ -15,12 +15,6 @@ const About = () => {
 
   const rooms = useSelector(state => state.room)
 
-  if (!rooms?.roomInfo?.length) {
-    return (
-      <></>
-    );
-  }
-
   return (
     <div className='my-10'>
       <div className='px-10 flex flex-wrap items-center justify-center'>
@@ -28,14 +22,15 @@ const About = () => {
         <p className='text-gray-500 w-full text-center mt-5'>Add the rooms you and your family want to build together</p>
         <div className="flex mt-5">
         <Link to="/create-room">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">Create Room</button>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">Create Project</button>
         </Link>
-          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Join Room</button>
+          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Join Project</button>
         </div>
       </div>
       <div className='flex flex-wrap items-center justify-center px-20 my-10'>
         {error && <p>Error: {error}</p>}
         {
+          (rooms?.roomInfo?.length) ?
           rooms.roomInfo[0].map((data, idx) => {
             return (
               <Link key={idx} to={`room/${data.room_id}`} className="idea_card flex flex-wrap items-center p-5 py-14 m-auto">
@@ -49,6 +44,7 @@ const About = () => {
               </Link>
             )
           })
+          : <>You have no Projects</>
         }
       </div>
     </div>
