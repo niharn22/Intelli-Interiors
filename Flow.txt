@@ -1,0 +1,7 @@
+1) Signup => Login (authorisation using dw only)
+2) Splash Screen => Home Screen. (=> Kanban Board).
+3) Tasks Management for Family Access
+4) QA Tracker => Gantt Chart => Task Management
+5) Budgeting and Forecasting => some more insights
+6) Live Chat => Real Chat.
+7) Feedback => Feedback Collection.

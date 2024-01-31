@@ -7,8 +7,10 @@ const asyncHandler = require("express-async-handler");
 // @route Get /room
 // @access Private
 const getRoom = asyncHandler(async (req, res) => {
-    const { room_id } = req.body;
+    const { room_id } = req.query;
 
+    console.log(req.query)
+    
     try {
         const room = await Room.findOne({ room_id }).populate('users');
 
