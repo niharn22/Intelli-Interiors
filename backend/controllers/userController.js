@@ -1,4 +1,5 @@
-const { User } = require("../model/users");
+const { default: mongoose } = require("mongoose");
+const { User, validate } = require("../model/users");
 const asyncHandler = require('express-async-handler');
 
 
@@ -6,40 +7,63 @@ const asyncHandler = require('express-async-handler');
 // @route GET /user
 // @access Private
 const getAUser = asyncHandler(async (req, res) => {
-    console.log(req.body)
-    const { _id  } = req.body;
-    var getUser;
+    const { userId } = req.body;
 
-    if(_id) {
-        getUser = await User.find({ _id });
+    try {
+        // Validate if the provided userId is a valid ObjectId
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid ObjectId format" });
+        }
+
+        // Find the user by ObjectId
+        const user = await User.findById(userId).populate('rooms'); // Populate the 'rooms' field
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Return the user information
+        return res.status(200).json({ user });
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: "Server Error" });
     }
-    else {
-        return res.status(400).json({ message: "Enter userid" })
-    }
-
-    // if(!getUser?.length) {
-    //     return res.status(400).json({ message: 'No users found'} )
-    // }
-
-    res.json(getUser);
 })
 
 // @desc Get a user
 // @route POST /user
 // @access Private
-const getUser = asyncHandler(async (req, res) => {
-    const { _id  } = req.body;
-    var getUser;
+const addUser = asyncHandler(async (req, res) => {
+    const { error } = validate(req.body);
 
-    if(_id) {
-        getUser = await User.find({ _id });
+    if (error) {
+        return res.status(400).json({ message: "Add all fields", error: error.details[0].message });
     }
-    else {
-        return res.status(400).json({ message: "Enter userid" })
-    }
-    res.json(getUser);
-})
 
+    const { firstName, lastName, email } = req.body;
+
+    try {
+        let existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).json({ message: "User with this email already exists" });
+        }
+
+        const newUser = new User({
+            firstName,
+            lastName,
+            email,
+            rooms: []
+        });
+
+        await newUser.save();
+        return res.status(201).json({ message: "User added successfully", user: newUser });
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: "Server Error" });
+    }
+});
 
 
 // @desc Updating a user
@@ -48,16 +72,16 @@ const getUser = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
     const { _id, firstName, lastName, inCart } = req.body;
 
-    if(!_id) {
+    if (!_id) {
         return res.status(400).json({ message: "ID required to update user" })
     }
 
-    if(!firstName && !lastName && !inCart?.length) {
+    if (!firstName && !lastName && !inCart?.length) {
         return res.status(400).json({ message: "No user to update" })
     }
 
     const userToUpdate = await User.findById(_id).exec();
-    if(!userToUpdate) {
+    if (!userToUpdate) {
         return res.status(400).json({ message: "No such user found" });
     }
 
@@ -67,7 +91,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     const updatedUser = await userToUpdate.save();
 
-    if(updatedUser) {
+    if (updatedUser) {
         res.json(updatedUser);
     }
 })
@@ -100,4 +124,4 @@ const deleteNote = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = { getAUser, getUser, updateUser }
+module.exports = { getAUser, addUser, updateUser }

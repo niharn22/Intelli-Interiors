@@ -1,7 +1,10 @@
 const Room = require('../model/Room');
-const {User} = require('../model/users')
+const { User } = require('../model/users')
 const asyncHandler = require("express-async-handler");
 
+// @desc Create room
+// @route POST /room
+// @access Private
 const createRoom = asyncHandler(async (req, res) => {
     try {
         // Assuming req.body has necessary data for creating a room
@@ -16,21 +19,18 @@ const createRoom = asyncHandler(async (req, res) => {
         await newRoom.save();
 
         // Create a RoomModel based on the room_id
-        const RoomModel = Room.createRoomModel(room_id);
+        Room.createRoomModel(room_id);
 
-        // Now you can use RoomModel to interact with the specific room in the database
-
-        console.log(`Room created with id: ${room_id}`);
-
-        // Respond with the room_id or any other data as needed
-        res.status(201).json({ room_id });
+        res.status(201).json({ message: "Room created" });
     } catch (error) {
         console.error("Error creating room:", error);
-        // Handle the error and respond accordingly
         res.status(500).json({ error: "Failed to create room" });
     }
 });
 
+// @desc Add user to room
+// @route Patch /room
+// @access Private
 const addUser = asyncHandler(async (req, res) => {
     try {
         // Assuming req.body has necessary data for adding a user to a room
@@ -43,7 +43,9 @@ const addUser = asyncHandler(async (req, res) => {
         }
 
         // Find the room by room_id
-        const room = await Room.findById( room_id )
+        const room = await Room.findOne({ room_id })
+
+        console.log(room)
 
         if (!room) {
             return res.status(404).json({ error: "Room not found" });
@@ -57,12 +59,10 @@ const addUser = asyncHandler(async (req, res) => {
         // Add the user_id to the room
         room.users.push(user_id);
 
-        user.rooms.push(room_id);
+        user.rooms.push(room._id);
 
         // Save the updated room to the database
-        await room.save();
-
-        console.log(`User with ID ${user_id} added to room with ID: ${room_id}`);
+        await Promise.all([room.save(), user.save()]);
 
         // Respond with success message or any other data as needed
         res.status(200).json({ message: "User added to room successfully" });

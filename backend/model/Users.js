@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const Room = require('./Room');
 
 const userSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true },
-	rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Room' }]
+	rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: Room }]
 });
 
 const User = mongoose.model("user", userSchema);
