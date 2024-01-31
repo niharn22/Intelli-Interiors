@@ -35,9 +35,7 @@ app.use(errorHandler);
 
 //router
 app.use('/', require('./routes/root'));
-app.use("/login", require('./controllers/login'));
 app.use("/signup", require('./controllers/signup'));
-app.use('/products', require('./routes/productRoutes'));
 app.use('/user', require('./routes/userRoutes'));
 app.use('/email', require('./routes/emailRoute'));
 
