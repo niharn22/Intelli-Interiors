@@ -39,6 +39,7 @@ app.use("/signup", require('./controllers/signup'));
 app.use('/user', require('./routes/userRoutes'));
 app.use('/email', require('./routes/emailRoute'));
 app.use('/room',require('./routes/roomRoute'))
+app.use('/room/tasks',require('./routes/tasksRoute'))
 
 //for 404
 app.all('*', (req, res) => {

@@ -7,6 +7,5 @@ router.route('/')
     .get(roomController.getRoom)
     .post(roomController.createRoom)
     .patch(roomController.addUser)
-    
 
 module.exports = router
