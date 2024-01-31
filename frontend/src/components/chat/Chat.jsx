@@ -21,16 +21,15 @@ const Chat = ({ room }) => {
             where("room", "==", room),
             orderBy("createdAt")
         );
-        const unsuscribe = onSnapshot(queryMessages, (snapshot) => {
+        const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
             let messages = [];
             snapshot.forEach((doc) => {
                 messages.push({ ...doc.data(), id: doc.id });
             });
-            console.log(messages);
             setMessages(messages);
         });
 
-        return () => unsuscribe();
+        return () => unsubscribe();
     }, []);
 
     const handleSubmit = async (event) => {
@@ -48,26 +47,27 @@ const Chat = ({ room }) => {
     };
 
     return (
-        <div className="chat-app">
-            <div className="header">
-                <h1>Welcome to: {room.toUpperCase()}</h1>
+        <div className="max-w-screen-sm mx-auto p-4 border border-purple-500 rounded h-screen">
+            <div className="mb-8 text-center pb-2">
+                <h1 className="text-2xl font-bold">Welcome To Chatroom : {room.toUpperCase()}</h1>
+                <p className="text-purple-500" > communication made easy , order , communicate & plan</p>
             </div>
-            <div className="messages">
+            <div className="max-h-80 overflow-y-auto mb-4">
                 {messages.map((message) => (
-                    <div key={message.id} className="message">
-                        <span className="user">{message.user}:</span> {message.text}
+                    <div key={message.id} className="mb-2">
+                        <span className="font-bold">{message.user}:</span> {message.text}
                     </div>
                 ))}
             </div>
-            <form onSubmit={handleSubmit} className="new-message-form">
+            <form onSubmit={handleSubmit} className="flex items-center space-x-4">
                 <input
                     type="text"
                     value={newMessage}
                     onChange={(event) => setNewMessage(event.target.value)}
-                    className="new-message-input"
+                    className="flex-1 p-2 border border-purple-500 rounded"
                     placeholder="Type your message here..."
                 />
-                <button type="submit" className="send-button">
+                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
                     Send
                 </button>
             </form>
@@ -75,4 +75,4 @@ const Chat = ({ room }) => {
     );
 };
 
-export default Chat
+export default Chat;
