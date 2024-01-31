@@ -7,10 +7,42 @@ import * as Component from './components';
 
 import { useState, useEffect } from 'react';
 
+import auth from './store/auth';
+
 import scrollToTop from './utility/scrollToTop';
 import Room1 from './components/about/Room1';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { appendRoomInfo, removeRoomInfo } from './store/room';
+
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 function App() {
+    const dispatch = useDispatch()
+    const rooms = useSelector(state => state.room)
+
+    useEffect(() => {
+        if (!rooms) return
+
+        const getUserRooms = async () => {
+            try {
+                const response = await axios.get('http://localhost:3300/rooms', {
+                    params: {
+                        email: 'kushalv238@gmail.com',
+                    },
+                });
+                console.log(response)
+                
+                dispatch(appendRoomInfo(response.data.user.rooms))
+                
+            } catch (error) {
+                toast.error(error.message);
+            }
+        }
+        getUserRooms();
+    }, [auth])
+
     const [onPage, setOnPage] = useState(1);
     const [notTop, setNotTop] = useState({ header: false, toTopButton: false });
 
@@ -44,34 +76,34 @@ function App() {
                 <div className='col'>
                     <UserAuthContextProvider>
                         <Component.Header onPage={onPage} setOnPage={setOnPage} notTop={notTop.header} />
-                        
+
                         <Routes>
                             {/* Add protected routes */}
                             <Link element={<Component.ProtectedRouting />}>
                                 <Link exact path='faqs' element={<Component.FAQ />} />
-                                <Link exact path='chat' element={<Component.ChatApp />} />
+                                <Link exact path='rooms/room/:roomid/chat' element={<Component.ChatApp />} />
                             </Link>
 
                             <Link exact path='/' element={<Component.Home setOnPage={setOnPage} />} />
-                            
+
                             <Link exact path='auth' element={<Component.AuthLayout />}>
                                 <Link path='login' element={<Component.Login />} />
                                 <Link path='register' element={<Component.Register />} />
                                 <Link path='user' element={<Component.UserPage />} />
                                 <Link path='reset' element={<Component.ResetPass />} />
                             </Link>
-                            
+
                             <Link exact path='rooms' element={<Component.About />} />
-                            
+
 
                             <Link exact path='rooms/room/:roomid' element={<Room1 />} />
-                            
+
                             <Link exact path='contact' element={<Component.Contact />} />
 
                             <Link path="*" element={<Component.PageNotFound />} />
 
                         </Routes>
-                        
+
                         <Component.GoToTop notTop={notTop.toTopButton} />
                         <Component.Footer onPage={onPage} setOnPage={setOnPage} />
                     </UserAuthContextProvider>

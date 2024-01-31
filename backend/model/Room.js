@@ -31,8 +31,8 @@ roomSchema.statics.createRoomModel = function (room_id) {
             ],
             employees: [
                 {
-                    employee_name: { type: String, required: true },
-                    employee_price: { type: Number, required: true }
+                    employee_name: { type: String },
+                    employee_price: { type: Number }
                 }
             ]
         }]

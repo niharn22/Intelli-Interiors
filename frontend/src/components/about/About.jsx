@@ -6,30 +6,20 @@ import axios from 'axios'; // Import Axios
 import '../../stylesheets/about.css';
 import toast from 'react-hot-toast';
 
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+
 
 const About = () => {
-  const [roomData, setRoomData] = useState(null);
+  const [roomData, setRoomData] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchRoomData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3300/room', {
-          params: {
-            room_id: '1234',
-          },
-        });
+  const rooms = useSelector(state => state.room)
 
-        console.log(response.message)
-
-        setRoomData(response.data.room);
-      } catch (error) {
-        toast.error(error.message);
-      }
-    };
-
-    fetchRoomData();
-  }, []);
+  if (!rooms?.roomInfo?.length) {
+    return (
+      <></>
+    );
+  }
 
   return (
     <div className='my-10'>
@@ -43,17 +33,21 @@ const About = () => {
       </div>
       <div className='flex flex-wrap items-center justify-center px-20 my-10'>
         {error && <p>Error: {error}</p>}
-        {roomData && (
-          <div className="idea_card flex flex-wrap items-center p-5 py-14 w-2/5 m-auto">
-            <Link to={`room/${roomData.room_id}`}>
-              <div className='w-full icon__wrapper'>
-                <FontAwesomeIcon icon={faHouse} style={{ color: "#93278F" }} />
-              </div>
-              <p className='text-2xl w-full text-white mt-4 text-white'>Room 1</p>
-              <p className='text-xl w-full text-white mt-4 text-white' style={{ marginTop: '0.2rem' }}>{roomData.room_id}</p>
-            </Link>
-          </div>
-        )}
+        {
+          rooms.roomInfo[0].map((data, idx) => {
+            return (
+              <Link key={idx} to={`room/${data.room_id}`} className="idea_card flex flex-wrap items-center p-5 py-14 m-auto">
+                <div>
+                  <div className='w-full icon__wrapper'>
+                    <FontAwesomeIcon icon={faHouse} style={{ color: "#93278F" }} />
+                  </div>
+                  <p className='text-2xl w-full mt-4'>Project {idx + 1}</p>
+                  <p className='text-xl w-full mt-4' style={{ marginTop: '0.2rem' }}>{data.room_id}</p>
+                </div>
+              </Link>
+            )
+          })
+        }
       </div>
     </div>
   );

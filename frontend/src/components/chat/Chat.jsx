@@ -10,6 +10,8 @@ import {
     orderBy,
 } from "firebase/firestore";
 
+import chat from './../../resources/images/chat.png'
+
 const Chat = ({ room }) => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");

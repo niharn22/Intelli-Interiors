@@ -1,7 +1,23 @@
 .idea_card {
-    height: 20rem;
-    background-color: var(--clr-application-main);
+    min-height: 20rem;
+    border: 2px solid var(--clr-application-main);
     border-radius: 1rem;
+    width: 40%;
+    min-width: 20rem;
+    position: relative;
+    color: var(--clr-application-main);
+}
+
+.idea_card > * {
+    color: var(--clr-application-main);
+}
+
+.priority {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 2rem;
+    font-size: 1.2rem;
 }
 
 .solution-card {
@@ -11,8 +27,8 @@
 }
 
 .icon__wrapper > * {
-    background-color: white;
-    color: var(--clr-application-main);
+    background-color: var(--clr-application-main);
+    color: white !important;
     padding: 1rem;
     width: 2rem;
     height: 2rem;
@@ -23,3 +39,31 @@
     color: white;
     background-color: var(--clr-application-main);
 }
+
+.chat-icon-holder {
+    width: 5rem;
+    height: 5rem;
+
+    position: fixed;
+    bottom: 0;
+
+    display: grid;
+    place-items: center;
+}
+
+.chat-icon {
+    width: 4rem;
+    height: 4rem;
+
+    background-color: var(--clr-application-main);
+
+    color: white;
+
+    border-radius: 50%;
+
+    display: grid;
+    place-items: center;
+
+    cursor: pointer;
+}
+

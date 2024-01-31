@@ -3,11 +3,16 @@ import { createSlice } from '@reduxjs/toolkit';
 const authSlice = createSlice({
     name: 'room',
     initialState: {
-        roomInfo: null,
+        roomInfo: [],
     },
     reducers: {
         setRoomInfo: (state, action) => {
             state.roomInfo = action.payload;
+        },
+        appendRoomInfo: (state, action) => {
+            state.roomInfo.push(
+                action.payload
+            )
         },
         removeRoomInfo: (state) => {
             state.roomInfo = null;
@@ -15,5 +20,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { setUserInfo, removeUserInfo } = authSlice.actions;
+export const { setRoomInfo, appendRoomInfo, removeRoomInfo } = authSlice.actions;
 export default authSlice.reducer;

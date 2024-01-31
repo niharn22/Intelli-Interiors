@@ -15,6 +15,7 @@ const User = () => {
         try {
             await logOut()
             toast.success("Successfully Logged Out!", {icon: "👋"})
+            window.location.reload()
         } catch (err) {
             toast.error(removeFirebasePrefix(err.message))
         }

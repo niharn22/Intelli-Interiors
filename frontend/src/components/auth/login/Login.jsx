@@ -29,7 +29,7 @@ function Login() {
         try {
             await googleSignIn()
             toast.success('Successfully logged in!')
-            navigate("/")
+            window.location.reload()
         } catch (err) {
             toast.error(processMessage(err.message))
         } finally {
