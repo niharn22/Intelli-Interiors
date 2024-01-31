@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios'; // Import Axios
+import axios from 'axios'; 
 import '../../stylesheets/about.css';
 import toast from 'react-hot-toast';
 
@@ -37,7 +37,9 @@ const About = () => {
         <p className='text-3xl w-1/2 text-center'>Embark on a Journey Through Unique Spaces</p>
         <p className='text-gray-500 w-full text-center mt-5'>Add the rooms you and your family want to build together</p>
         <div className="flex mt-5">
+        <Link to="/create-room">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">Create Room</button>
+        </Link>
           <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Join Room</button>
         </div>
       </div>
