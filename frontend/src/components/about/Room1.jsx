@@ -110,7 +110,7 @@ const Room1 = () => {
 			const response = await axios.post('http://localhost:3300/room/tasks', {
 				tasks: outputObject,
 				room_id: roomid,
-				email: user.email
+				email: newTask.assignedTo
 			});
 
 			toast.success(response.message)
