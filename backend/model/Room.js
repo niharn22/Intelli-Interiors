@@ -7,7 +7,7 @@ const roomSchema = new mongoose.Schema({
 
 roomSchema.statics.createRoomModel = function (room_id) {
     const RoomModel = mongoose.model(("room" + room_id), new mongoose.Schema({
-        users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        users: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         tasks: [{
             task_name: { type: String, required: true },
             description: { type: String },
