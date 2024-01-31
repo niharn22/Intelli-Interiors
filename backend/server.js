@@ -37,8 +37,10 @@ app.use(errorHandler);
 app.use('/', require('./routes/root'));
 app.use("/signup", require('./controllers/signup'));
 app.use('/user', require('./routes/userRoutes'));
+app.use('/userInfo', require('./routes/userInfoRoutes'));
 app.use('/email', require('./routes/emailRoute'));
 app.use('/room',require('./routes/roomRoute'))
+app.use('/rooms',require('./routes/roomsRoute'))
 app.use('/room/tasks',require('./routes/tasksRoute'))
 
 //for 404

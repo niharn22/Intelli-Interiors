@@ -22,11 +22,6 @@ const Header = (props) => {
 	// const [dropDownActive, setDropDownActive] = useState(false);
 	const [navbarActive, setNavbarActive] = useState(false);
 
-	useEffect(() => {
-		setNavbarActive(false)
-		console.log(user)
-	}, [])
-
 	const handleCloseNav = () => {
 		scrollToTop()
 		setNavbarActive(false)

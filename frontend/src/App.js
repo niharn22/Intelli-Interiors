@@ -9,9 +9,9 @@ import { useState, useEffect } from 'react';
 
 import scrollToTop from './utility/scrollToTop';
 import Room1 from './components/about/Room1';
+import CreateRoom from './components/about/CreateRoom';
 
 function App() {
-    console.log(process.env.REACT_APP_FIREBASE_API_KEY)
     const [onPage, setOnPage] = useState(1);
     const [notTop, setNotTop] = useState({ header: false, toTopButton: false });
 
@@ -69,6 +69,8 @@ function App() {
                             
                             <Link exact path='contact' element={<Component.Contact />} />
 
+                            <Link exact path='create-route' element={<CreateRoom />} />
+
                             <Link path="*" element={<Component.PageNotFound />} />
 
                         </Routes>
@@ -82,4 +84,4 @@ function App() {
     );
 }
 
-export default App;
+export default App

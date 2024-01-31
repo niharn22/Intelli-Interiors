@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 
 const Home = (props) => {
     const user = useSelector(state => state.user.userInfo);
-    console.log(user)
+    
     useEffect(() => {
         props.setOnPage(1)
     }, [props])

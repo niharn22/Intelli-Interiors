@@ -7,16 +7,16 @@ const asyncHandler = require('express-async-handler');
 // @route GET /user
 // @access Private
 const getAUser = asyncHandler(async (req, res) => {
-    const { userId } = req.body;
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
 
     try {
-        // Validate if the provided userId is a valid ObjectId
-        if (!mongoose.Types.ObjectId.isValid(userId)) {
-            return res.status(400).json({ message: "Invalid ObjectId format" });
-        }
-
         // Find the user by ObjectId
-        const user = await User.findById(userId).populate('rooms'); // Populate the 'rooms' field
+        const user = await User.findById(user._id).populate('rooms'); // Populate the 'rooms' field
 
         // Check if the user exists
         if (!user) {
@@ -36,6 +36,7 @@ const getAUser = asyncHandler(async (req, res) => {
 // @access Private
 const addUser = asyncHandler(async (req, res) => {
     const { error } = validate(req.body);
+    console.log(error)
 
     if (error) {
         return res.status(400).json({ message: "Add all fields", error: error.details[0].message });
