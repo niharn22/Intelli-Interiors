@@ -12,7 +12,6 @@ import Room1 from './components/about/Room1';
 import CreateRoom from './components/about/CreateRoom';
 
 function App() {
-    console.log(process.env.REACT_APP_FIREBASE_API_KEY)
     const [onPage, setOnPage] = useState(1);
     const [notTop, setNotTop] = useState({ header: false, toTopButton: false });
 

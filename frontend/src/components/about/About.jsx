@@ -15,10 +15,10 @@ const About = () => {
     const fetchRoomData = async () => {
       try {
         const response = await axios.get('http://localhost:3300/room', {
-        params: {
-          room_id: '1234',
-        },
-      });
+          params: {
+            room_id: '1234',
+          },
+        });
 
         console.log(response.message)
 

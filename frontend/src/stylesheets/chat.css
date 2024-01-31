@@ -66,3 +66,43 @@
     font-size: 16px;
     font-weight: bold;
 }
+
+/* Add these styles to your chat.css or create a new stylesheet */
+
+.room {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: 50px; /* Adjust the margin as needed */
+}
+
+.centered-content {
+    text-align: center;
+}
+
+.chat-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px; /* Adjust the margin as needed */
+}
+
+.text-container {
+    font-size: 1.5rem; /* Adjust the font size as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fun-text {
+    font-size: 2rem; /* Adjust the font size as needed */
+    margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+input {
+    margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.create-room-button {
+    font-size: 1.2rem; /* Adjust the font size as needed */
+}

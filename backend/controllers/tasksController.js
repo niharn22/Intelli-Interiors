@@ -5,13 +5,18 @@ const Room = require("../model/Room");
 
 const getTasks = asyncHandler(async (req, res) => {
     try {
-        const { user_id, room_id } = req.body;
+        const { email, room_id } = req.body;
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
         // Use the Room model to dynamically retrieve the model for the specific room_id
         const RoomModel = Room.createRoomModel(room_id);
 
         // Find the existing room by room_id using RoomModel
-        const room = await RoomModel.findOne({ users: user_id });
+        const room = await RoomModel.findOne({ users: user._id });
 
         if (!room) {
             return res.status(404).json({ error: "Room not found" });
@@ -28,13 +33,18 @@ const getTasks = asyncHandler(async (req, res) => {
 
 const addTask = asyncHandler(async (req, res) => {
     try {
-        const { tasks, room_id, user_id } = req.body;
+        const { tasks, room_id, email } = req.body;
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
         // Use the Room model to dynamically retrieve the model for the specific room_id
         const RoomModel = Room.createRoomModel(room_id);
-        
+
         // Find the existing room by room_id using RoomModel
-        const room = await RoomModel.findOne({ users: user_id });
+        const room = await RoomModel.findOne({ users: user._id });
 
         if (room) {
             // Check if room.tasks is undefined and initialize it as an array if needed
@@ -51,7 +61,7 @@ const addTask = asyncHandler(async (req, res) => {
 
         // If the room doesn't exist, create a new RoomModel
         const newTask = new RoomModel({
-            users: user_id,
+            users: user._id,
             tasks
         });
 
@@ -72,13 +82,18 @@ const addTask = asyncHandler(async (req, res) => {
 
 const updateTask = asyncHandler(async (req, res) => {
     try {
-        const { index ,room_id, user_id, updatedTasks } = req.body;
+        const { index, room_id, email, updatedTasks } = req.body;
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
 
         // Use the Room model to dynamically retrieve the model for the specific room_id
         const RoomModel = Room.createRoomModel(room_id);
 
         // Find the existing room by room_id using RoomModel
-        const room = await RoomModel.findOne({ users: user_id });
+        const room = await RoomModel.findOne({ users: email._id });
 
         if (!room) {
             return res.status(404).json({ error: "Room not found" });
@@ -95,4 +110,4 @@ const updateTask = asyncHandler(async (req, res) => {
 });
 
 
-module.exports = {addTask,updateTask,getTasks}
+module.exports = { addTask, updateTask, getTasks }
