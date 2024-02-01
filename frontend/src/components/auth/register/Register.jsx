@@ -8,6 +8,8 @@ import processMessage from "../../../utility/processFirebaseMessage";
 import GoogleButton from "../../util-components/GoogleButton";
 
 import toast from "react-hot-toast";
+import axios from "axios";
+import { auth } from "../../../config/Firebase";
 
 function Register() {
 	const navigate = useNavigate();
@@ -29,9 +31,18 @@ function Register() {
 		setSubmitButtonDisabled(true)
 
 		try {
-			await googleSignIn()
+			const user = await googleSignIn()
 			toast.success('Successfully logged in!')
-			window.location.reload()
+
+			console.log(auth.displayName)
+
+			const response = await axios.post('http://localhost:3300/user', {
+				firstName: user.displayName.split(" ")[0],
+				lastName: user.displayName.split(" ")[1] || "",
+				email: user.email,
+			});
+
+			// window.location.reload()
 		} catch (err) {
 			toast.error(processMessage(err.message))
 		} finally {
@@ -56,6 +67,12 @@ function Register() {
 		try {
 			await signUp(values.name, values.email, values.password)
 			toast.success('Successfully signed up!')
+
+			const response = await axios.post('http://localhost:3300/user', {
+				firstName: values.name.split(" ")[0],
+				lastName: values.name.split(" ")[1] || "",
+				email: values.email,
+			});
 
 			navigate("/")
 		} catch (err) {

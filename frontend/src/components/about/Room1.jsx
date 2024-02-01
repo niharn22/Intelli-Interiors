@@ -13,6 +13,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { auth } from '../../config/Firebase';
+import TasksComponent from './TasksComponent';
 
 const Room1 = () => {
 	const { roomid } = useParams();
@@ -22,11 +23,10 @@ const Room1 = () => {
 
 	const user = useSelector(state => state.user.userInfo)
 
-
 	useEffect(() => {
 		if (!roomid) return
 
-		const getUserRooms = async () => {
+		const getUserTasks = async () => {
 			if (tasks?.length) return
 
 			try {
@@ -54,7 +54,7 @@ const Room1 = () => {
 					},
 				});
 
-				console.log("res", response.data.room.users)
+				// console.log("res", response.data.room.users)
 
 				setUsers(response.data.room.users)
 			} catch (error) {
@@ -62,7 +62,7 @@ const Room1 = () => {
 			}
 		}
 
-		getUserRooms();
+		getUserTasks();
 		getUsers();
 	}, [user])
 
@@ -76,10 +76,6 @@ const Room1 = () => {
 		status: '',
 		priority: '',
 	});
-
-	useEffect(() => {
-		console.log(newTask)
-	}, [newTask])
 
 	const handleTaskChange = (e) => {
 		const { name, value } = e.target;
@@ -104,8 +100,6 @@ const Room1 = () => {
 			}]
 		};
 
-		console.log(outputObject)
-
 		try {
 			const response = await axios.post('http://localhost:3300/room/tasks', {
 				tasks: outputObject,
@@ -113,7 +107,7 @@ const Room1 = () => {
 				email: newTask.assignedTo
 			});
 
-			toast.success(response.message)
+			toast.success(response.data.message)
 		} catch (error) {
 			toast.error(error.message)
 		}
@@ -349,21 +343,27 @@ const Room1 = () => {
 
 					<div className='flex flex-wrap items-center justify-center my-10 gap-10'>
 						{
-							tasks.map((task, idx) => {
-								return (
-									<div key={idx} className="idea_card flex flex-wrap items-center p-5 py-14 m-auto">
-										<div className="priority">{task.priority === 1 ? <p className='text-red-500'>High Priority</p> : task.priority === 2 ? <p className='text-yellow-500'>Low priority</p> : <p className='text-green-500'>Least Priority</p>}</div>
-										{/* <Link to="room/ax325"> */}
-										<div className='icon__wrapper'>
-											<FontAwesomeIcon icon={faHouse} />
-										</div>
-										<p className='text-3xl underline w-full mt-4'>Task : {task.task_name}</p>
-										<p className='text-xl w-full mt-4'>Description : {task.description}</p>
-										<p className='text-xl w-full mt-4'>Assigned To: {user.displayName}</p>
-										<p className='text-xl w-full mt-4'>Deadline: {task.deadline}</p>
-									</div>
-								)
-							})
+							(tasks?.length) &&
+							tasks
+								?.sort((a, b) => {
+									if (a.status === 100 && b.status !== 100) {
+										return 1; // Put task with status 100 at the end
+									}
+									if (a.status !== 100 && b.status === 100) {
+										return -1; // Put task with status 100 at the end
+									}
+									// If both tasks have the same status or neither have status 100
+									return a.priority - b.priority; // Sort by priority
+								}).map((task, idx) => {
+									return (
+										<TasksComponent
+											idx={idx}
+											task={task}
+											roomid={roomid}
+											name={user.displayName}
+										/>
+									)
+								})
 						}
 
 					</div>

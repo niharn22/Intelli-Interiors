@@ -24,8 +24,6 @@ function App() {
     const rooms = useSelector(state => state.room)
 
     useEffect(() => {
-        if (!rooms) return
-
         const getUserRooms = async () => {
             try {
                 const response = await axios.get('http://localhost:3300/rooms', {
@@ -33,7 +31,6 @@ function App() {
                         email: user.email,
                     },
                 });
-                console.log(response)
                 
                 dispatch(appendRoomInfo(response.data.user.rooms))
                 
@@ -95,6 +92,8 @@ function App() {
                             </Link>
 
                             <Link exact path='rooms' element={<Component.About />} />
+                            <Link exact path='create-project' element={<Component.CreateProject />} />
+                            <Link exact path='join-project' element={<Component.JoinProject />} />
 
 
                             <Link exact path='rooms/room/:roomid' element={<Room1 />} />

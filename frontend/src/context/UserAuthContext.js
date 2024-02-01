@@ -28,22 +28,34 @@ export function UserAuthContextProvider({ children }) {
 
     async function signUp(name, email, password) {
         try {
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          await updateProfile(userCredential.user, { displayName: name });
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(userCredential.user, { displayName: name });
 
-          return userCredential;
+            return userCredential;
         } catch (err) {
-          throw new Error(err);
+            throw new Error(err);
         }
-      }
+    }
 
     function logOut() {
         return signOut(auth);
     }
 
-function googleSignIn() {
-        const googleAuthProvider = new GoogleAuthProvider();
-        return signInWithPopup(auth, googleAuthProvider);
+    async function googleSignIn() {
+        try {
+            const googleAuthProvider = new GoogleAuthProvider();
+            const userCredential = await signInWithPopup(auth, googleAuthProvider);
+
+            // Extract user information
+            const user = userCredential.user;
+
+            // You can return the entire user object or extract specific properties as needed
+            return user;
+        } catch (error) {
+            // Handle errors if the sign-in fails
+            console.error('Error signing in with Google:', error.message);
+            throw error;
+        }
     }
 
     useEffect(() => {

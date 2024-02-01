@@ -16,6 +16,9 @@ export { default as Footer } from './pure_components/Footer'
 export { default as GoToTop } from './pure_components/GoToTop'
 
 export { default as About } from './about/About'
+export { default as CreateProject } from './about/CreateProject'
+export { default as JoinProject } from './about/JoinProject'
+
 export { default as Contact } from './contact/Contact'
 export { default as FAQ } from './faq/FAQ'
 

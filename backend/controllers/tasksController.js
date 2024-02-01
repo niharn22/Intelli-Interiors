@@ -83,11 +83,12 @@ const addTask = asyncHandler(async (req, res) => {
 
 
 // @desc Update Tasks
-// @route PATCH /room/:room_id/tasks
+// @route PATCH /room/tasks
 // @access Private
 
 const updateTask = asyncHandler(async (req, res) => {
     try {
+        console.log(req.body)
         const { index, room_id, email, updatedTasks } = req.body;
 
         const user = await User.findOne({ email });
@@ -97,9 +98,9 @@ const updateTask = asyncHandler(async (req, res) => {
 
         // Use the Room model to dynamically retrieve the model for the specific room_id
         const RoomModel = Room.createRoomModel(room_id);
-
+        
         // Find the existing room by room_id using RoomModel
-        const room = await RoomModel.findOne({ users: email._id });
+        const room = await RoomModel.findOne({ users: user._id });
 
         if (!room) {
             return res.status(404).json({ error: "Room not found" });
