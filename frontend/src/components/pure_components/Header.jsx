@@ -89,6 +89,18 @@ const Header = (props) => {
 						>FAQ's</Link>
 					</li>
 
+
+					<li className={`nav-item ${props.onPage === 5 ? 'activePage' : ''}`}>
+						<Link
+							to="shop"
+							onClick={
+								props.onPage === 5
+									? handleCloseNav
+									: () => props.setOnPage(5)
+							}
+						>Shop</Link>
+					</li>
+
 					<li className='nav-item nav-item-auth'>
 						{
 							user ?
