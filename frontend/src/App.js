@@ -13,6 +13,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { appendRoomInfo, removeRoomInfo } from './store/room';
+import ShopFromAmazon from './components/Amazon/ShopFromAmazon';
 
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 
@@ -95,6 +96,7 @@ function App() {
                             <Link exact path='create-project' element={<Component.CreateProject />} />
                             <Link exact path='join-project' element={<Component.JoinProject />} />
 
+                            <Link exact path='/shop' element={<ShopFromAmazon />} />
 
                             <Link exact path='rooms/room/:roomid' element={<Room1 />} />
 
