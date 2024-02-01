@@ -21,7 +21,7 @@ const Contact = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3300/email', formData);
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/email`, formData);
             toast.success(response.data.message);
         } catch (error) {
             toast.error(error.response.data.message);

@@ -13,8 +13,8 @@ const CreateProject = () => {
 
         try {
             const [createResponse, patchResponse] = await Promise.all([
-                axios.post('http://localhost:3300/room', { room_id }),
-                axios.patch('http://localhost:3300/room', { email: user.email, room_id }),
+                axios.post(`${process.env.REACT_APP_API_URL}/room`, { room_id }),
+                axios.patch(`${process.env.REACT_APP_API_URL}/room`, { email: user.email, room_id }),
             ]);
 
             toast.success(createResponse.data.message);

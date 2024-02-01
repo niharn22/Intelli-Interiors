@@ -37,7 +37,7 @@ const Room1 = () => {
 		if (tasks?.length) return
 
 		try {
-			const response = await axios.get('http://localhost:3300/room/tasks', {
+			const response = await axios.get(`${process.env.REACT_APP_API_URL}/room/tasks`, {
 				params: {
 					email: user.email,
 					room_id: roomid,
@@ -55,7 +55,7 @@ const Room1 = () => {
 		if (users?.length) return
 
 		try {
-			const response = await axios.get('http://localhost:3300/room', {
+			const response = await axios.get(`${process.env.REACT_APP_API_URL}/room`, {
 				params: {
 					room_id: roomid,
 				},
@@ -71,7 +71,7 @@ const Room1 = () => {
 
 	// const getInsights = async () => {
 	// 	try {
-	// 		const response = await axios.get('http://localhost:3300/room/tasks-cost', {
+	// 		const response = await axios.get(`${process.env.REACT_APP_API_URL}/room/tasks-cost`, {
 	// 			params: {
 	// 				room_id: roomid,
 	// 			},
@@ -87,7 +87,7 @@ const Room1 = () => {
 
 	const getInsights = async () => {
 		try {
-			const response = await axios.get('http://localhost:3300/room/tasks-cost', {
+			const response = await axios.get(`${process.env.REACT_APP_API_URL}/room/tasks-cost`, {
 				params: {
 					room_id: roomid,
 				},
@@ -142,7 +142,7 @@ const Room1 = () => {
 		};
 
 		try {
-			const response = await axios.post('http://localhost:3300/room/tasks', {
+			const response = await axios.post(`${process.env.REACT_APP_API_URL}/room/tasks`, {
 				tasks: outputObject,
 				room_id: roomid,
 				email: newTask.assignedTo
@@ -320,7 +320,7 @@ const Room1 = () => {
 
 
 	useEffect(() => {
-		if(!insights) return;
+		if (!insights) return;
 
 		if ((totalBudget - insights.totalCost) < 0) {
 			toast("Budget overflowed!", { icon: '💀' })
@@ -377,7 +377,7 @@ const Room1 = () => {
 					{/* // Card for Family Members */}
 					<div className="w-1/3 mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
 						<div className="p-4">
-							<h2 className="text-xl font-bold text-gray-800">Family Members</h2>
+							<h2 className="text-xl font-bold text-gray-800">Project Members</h2>
 							<Pie data={{ ...dataFamilyMembers, datasets: applyPastelColors(dataFamilyMembers.datasets) }} options={options} />
 						</div>
 					</div>
@@ -408,16 +408,17 @@ const Room1 = () => {
 						{
 							(tasks?.length) &&
 							tasks
-								?.sort((a, b) => {
-									if (a.status === 100 && b.status !== 100) {
-										return 1; // Put task with status 100 at the end
-									}
-									if (a.status !== 100 && b.status === 100) {
-										return -1; // Put task with status 100 at the end
-									}
-									// If both tasks have the same status or neither have status 100
-									return a.priority - b.priority; // Sort by priority
-								}).map((task, idx) => {
+								// ?.sort((a, b) => {
+								// 	if (a.status === 100 && b.status !== 100) {
+								// 		return 1; // Put task with status 100 at the end
+								// 	}
+								// 	if (a.status !== 100 && b.status === 100) {
+								// 		return -1; // Put task with status 100 at the end
+								// 	}
+								// 	// If both tasks have the same status or neither have status 100
+								// 	return a.priority - b.priority; // Sort by priority
+								// })
+								.map((task, idx) => {
 									return (
 										<div key={idx} className="idea_card flex flex-wrap items-center p-5 py-14 m-auto gap-2">
 											<TasksComponent

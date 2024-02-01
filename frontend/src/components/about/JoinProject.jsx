@@ -12,7 +12,7 @@ const JoinProject = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.patch('http://localhost:3300/room', {
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/room`, {
                 email: user.email,
                 room_id
             });

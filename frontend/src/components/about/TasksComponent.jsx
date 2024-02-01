@@ -25,7 +25,7 @@ const TasksComponent = (props) => {
 
     const updateTaskValue = async (e) => {
         try {
-            const response = await axios.patch('http://localhost:3300/room/tasks', {
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/room/tasks`, {
                 index: props.idx,
                 room_id: props.roomid,
                 email: user.email,
@@ -51,6 +51,7 @@ const TasksComponent = (props) => {
             </div>
             <p className='text-3xl underline w-full mt-4'>Task : {task.task_name}</p>
             <p className='text-xl w-full mt-4'>Description : {task.description}</p>
+            <p className='text-xl w-full mt-4'>Room : {task.room_name}</p>
             <p className='text-xl w-full mt-4'>Assigned To: {name}</p>
             <p className='text-xl w-full mt-4'>Deadline: {formatDate(task.deadline)}</p>
             <label htmlFor="slider" className='text-xl'>Progress:</label>

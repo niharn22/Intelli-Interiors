@@ -36,7 +36,7 @@ function Register() {
 
 			console.log(auth.displayName)
 
-			const response = await axios.post('http://localhost:3300/user', {
+			const response = await axios.post(`${process.env.REACT_APP_API_URL}/user`, {
 				firstName: user.displayName.split(" ")[0],
 				lastName: user.displayName.split(" ")[1] || "",
 				email: user.email,
@@ -68,7 +68,7 @@ function Register() {
 			await signUp(values.name, values.email, values.password)
 			toast.success('Successfully signed up!')
 
-			const response = await axios.post('http://localhost:3300/user', {
+			const response = await axios.post(`${process.env.REACT_APP_API_URL}/user`, {
 				firstName: values.name.split(" ")[0],
 				lastName: values.name.split(" ")[1] || "",
 				email: values.email,

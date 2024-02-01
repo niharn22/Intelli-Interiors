@@ -27,7 +27,7 @@ function App() {
     useEffect(() => {
         const getUserRooms = async () => {
             try {
-                const response = await axios.get('http://localhost:3300/rooms', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/rooms`, {
                     params: {
                         email: user.email,
                     },
@@ -81,6 +81,7 @@ function App() {
                             <Link element={<Component.ProtectedRouting />}>
                                 <Link exact path='faqs' element={<Component.FAQ />} />
                                 <Link exact path='rooms/room/:roomid/chat' element={<Component.ChatApp />} />
+                                <Link exact path='rooms' element={<Component.About />} />
                             </Link>
 
                             <Link exact path='/' element={<Component.Home setOnPage={setOnPage} />} />
@@ -92,7 +93,6 @@ function App() {
                                 <Link path='reset' element={<Component.ResetPass />} />
                             </Link>
 
-                            <Link exact path='rooms' element={<Component.About />} />
                             <Link exact path='create-project' element={<Component.CreateProject />} />
                             <Link exact path='join-project' element={<Component.JoinProject />} />
 
