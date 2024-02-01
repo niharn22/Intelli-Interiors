@@ -5,11 +5,8 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
 
-
 const TasksComponent = (props) => {
     const { task, name } = props
-
-    console.log(task)
 
     const user = useSelector(state => state.user.userInfo)
 
@@ -56,7 +53,7 @@ const TasksComponent = (props) => {
             <p className='text-xl w-full mt-4'>Description : {task.description}</p>
             <p className='text-xl w-full mt-4'>Assigned To: {name}</p>
             <p className='text-xl w-full mt-4'>Deadline: {formatDate(task.deadline)}</p>
-            <label htmlFor="slider" className='text-xl'>Slider:</label>
+            <label htmlFor="slider" className='text-xl'>Progress:</label>
             <input
                 type="range"
                 id="slider"
@@ -68,8 +65,29 @@ const TasksComponent = (props) => {
                 onChange={handleSliderChange}
             />
             <p className='text-xl'>
-                {sliderValue}
+                {sliderValue}%
             </p>
+
+            <br />
+
+            <table className='flex flex-wrap w-full justify-center my-4 text-xl'>
+                <thead className='w-3/4'>
+                    <tr className='w-full flex bg-purple-300 flex-wrap'>
+                        <td className='border text-center border-purple-600 w-1/2'>Materials</td>
+                        <td className='border text-center border-purple-600 w-1/2'>Cost</td>
+                    </tr>
+                </thead>
+                {
+                    task.materials.map((mat, idx) =>
+                        <tbody key={idx} className='w-3/4'>
+                            <tr className='w-ful flex flex-wrap'>
+                                <td className='border text-center border-purple-600 w-1/2'>{mat.material_name}</td>
+                                <td className='border text-center border-purple-600 w-1/2'>{mat.material_price}</td>
+                            </tr>
+                        </tbody>
+                    )
+                }
+            </table>
 
             <br />
             <div className="w-full flex justify-center text-xl">

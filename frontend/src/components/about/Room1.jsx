@@ -21,6 +21,8 @@ const Room1 = () => {
 	const [tasks, setTasks] = useState([])
 	const [users, setUsers] = useState([])
 
+	const [insights, setInsights] = useState(null)
+
 	const user = useSelector(state => state.user.userInfo)
 
 	useEffect(() => {
@@ -62,8 +64,25 @@ const Room1 = () => {
 			}
 		}
 
+		const getInsights = async() => {
+			try {
+				const response = await axios.get('http://localhost:3300/room/tasks-cost', {
+					params: {
+						room_id: roomid,
+					},
+				});
+
+				console.log("insights", response.data)
+
+				setInsights(response.data)
+			} catch (error) {
+				toast.error(error.message)
+			}
+		}
+
 		getUserTasks();
 		getUsers();
+		getInsights()
 	}, [user])
 
 	const [newTask, setNewTask] = useState({

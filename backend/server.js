@@ -42,6 +42,7 @@ app.use('/email', require('./routes/emailRoute'));
 app.use('/room',require('./routes/roomRoute'))
 app.use('/rooms',require('./routes/roomsRoute'))
 app.use('/room/tasks',require('./routes/tasksRoute'))
+app.use('/room/tasks-cost',require('./routes/tasksCostRoute'))
 
 //for 404
 app.all('*', (req, res) => {
