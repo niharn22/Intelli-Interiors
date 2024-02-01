@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomImageView(
-                svgPath: ImageConstant.imgVectorBlueA70034x360,
+                imagePath: "assets/images/Splash.jpeg", // Adjust the path accordingly
                 height: getVerticalSize(
                   34,
                 ),

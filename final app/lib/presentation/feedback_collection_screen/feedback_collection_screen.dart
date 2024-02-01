@@ -26,147 +26,149 @@ class FeedbackCollectionScreen extends StatelessWidget {
             body: Container(
                 width: double.maxFinite,
                 padding: getPadding(left: 16, right: 16),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: getPadding(top: 29),
-                          child: Text("@ABC",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroySemiBold18)),
-                      Padding(
-                          padding: getPadding(top: 10),
-                          child: Text("23 may 2022, 12:00",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroyMedium14)),
-                      Container(
-                          width: getHorizontalSize(375),
-                          margin: getMargin(top: 11, right: 20),
-                          child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Vitae semper nibh justo, augue commodo.",
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroySemiBold16)),
-                      Container(
-                          width: getHorizontalSize(390),
-                          margin: getMargin(top: 6, right: 5),
-                          child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae semper nibh justo, augue commodo suspendisse pharetra turpis. Amet, tempus dui urna amet.",
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroyMedium14)),
-                      Padding(
-                          padding: getPadding(top: 15),
-                          child: Divider(
-                              height: getVerticalSize(1),
-                              thickness: getVerticalSize(1),
-                              color: ColorConstant.blueGray100)),
-                      Padding(
-                          padding: getPadding(top: 20),
-                          child: Text("@ABC",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroySemiBold18)),
-                      Padding(
-                          padding: getPadding(top: 10),
-                          child: Text("23 may 2022, 12:00",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroyMedium14)),
-                      Container(
-                          width: getHorizontalSize(375),
-                          margin: getMargin(top: 11, right: 20),
-                          child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Vitae semper nibh justo, augue commodo.",
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroySemiBold16)),
-                      Container(
-                          width: getHorizontalSize(390),
-                          margin: getMargin(top: 6, right: 5),
-                          child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae semper nibh justo, augue commodo suspendisse pharetra turpis. Amet, tempus dui urna amet.",
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroyMedium14)),
-                      Padding(
-                          padding: getPadding(top: 15),
-                          child: Divider(
-                              height: getVerticalSize(1),
-                              thickness: getVerticalSize(1),
-                              color: ColorConstant.blueGray100)),
-                      Padding(
-                          padding: getPadding(top: 20),
-                          child: Text("@ABC",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroySemiBold18)),
-                      Padding(
-                          padding: getPadding(top: 10),
-                          child: Text("23 may 2022, 12:00",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroyMedium14)),
-                      Container(
-                          width: getHorizontalSize(375),
-                          margin: getMargin(top: 11, right: 20),
-                          child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Vitae semper nibh justo, augue commodo.",
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroySemiBold16)),
-                      Container(
-                          width: getHorizontalSize(390),
-                          margin: getMargin(top: 6, right: 5),
-                          child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae semper nibh justo, augue commodo suspendisse pharetra turpis. Amet, tempus dui urna amet.",
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroyMedium14)),
-                      Padding(
-                          padding: getPadding(top: 15),
-                          child: Divider(
-                              height: getVerticalSize(1),
-                              thickness: getVerticalSize(1),
-                              color: ColorConstant.blueGray100)),
-                      Padding(
-                          padding: getPadding(top: 20),
-                          child: Text("@ABC",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroySemiBold18)),
-                      Padding(
-                          padding: getPadding(top: 10),
-                          child: Text("23 may 2022, 12:00",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroyMedium14)),
-                      Container(
-                          width: getHorizontalSize(375),
-                          margin: getMargin(top: 11, right: 20),
-                          child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Vitae semper nibh justo, augue commodo.",
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroySemiBold16)),
-                      Container(
-                          width: getHorizontalSize(390),
-                          margin: getMargin(top: 6, right: 5),
-                          child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae semper nibh justo, augue commodo suspendisse pharetra turpis. Amet, tempus dui urna amet.",
-                              maxLines: null,
-                              textAlign: TextAlign.left,
-                              style: AppStyle.txtGilroyMedium14)),
-                      Padding(
-                          padding: getPadding(top: 46),
-                          child: Divider(
-                              height: getVerticalSize(1),
-                              thickness: getVerticalSize(1),
-                              color: ColorConstant.blueGray100))
-                    ]))));
+                child: SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                            padding: getPadding(top: 29),
+                            child: Text("Dhruv",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroySemiBold18)),
+                        Padding(
+                            padding: getPadding(top: 10),
+                            child: Text("01 Feb 2024, 11:45",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroyMedium14)),
+                        Container(
+                            width: getHorizontalSize(375),
+                            margin: getMargin(top: 11, right: 20),
+                            child: Text(
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Vitae semper nibh justo, augue commodo.",
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroySemiBold16)),
+                        Container(
+                            width: getHorizontalSize(390),
+                            margin: getMargin(top: 6, right: 5),
+                            child: Text(
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae semper nibh justo, augue commodo suspendisse pharetra turpis. Amet, tempus dui urna amet.",
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroyMedium14)),
+                        Padding(
+                            padding: getPadding(top: 15),
+                            child: Divider(
+                                height: getVerticalSize(1),
+                                thickness: getVerticalSize(1),
+                                color: ColorConstant.blueGray100)),
+                        Padding(
+                            padding: getPadding(top: 20),
+                            child: Text("@ABC",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroySemiBold18)),
+                        Padding(
+                            padding: getPadding(top: 10),
+                            child: Text("1 Feb 2024, 12:00",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroyMedium14)),
+                        Container(
+                            width: getHorizontalSize(375),
+                            margin: getMargin(top: 11, right: 20),
+                            child: Text(
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Vitae semper nibh justo, augue commodo.",
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroySemiBold16)),
+                        Container(
+                            width: getHorizontalSize(390),
+                            margin: getMargin(top: 6, right: 5),
+                            child: Text(
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae semper nibh justo, augue commodo suspendisse pharetra turpis. Amet, tempus dui urna amet.",
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroyMedium14)),
+                        Padding(
+                            padding: getPadding(top: 15),
+                            child: Divider(
+                                height: getVerticalSize(1),
+                                thickness: getVerticalSize(1),
+                                color: ColorConstant.blueGray100)),
+                        Padding(
+                            padding: getPadding(top: 20),
+                            child: Text("@ABC",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroySemiBold18)),
+                        Padding(
+                            padding: getPadding(top: 10),
+                            child: Text("1 Feb 2024, 12:00",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroyMedium14)),
+                        Container(
+                            width: getHorizontalSize(375),
+                            margin: getMargin(top: 11, right: 20),
+                            child: Text(
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Vitae semper nibh justo, augue commodo.",
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroySemiBold16)),
+                        Container(
+                            width: getHorizontalSize(390),
+                            margin: getMargin(top: 6, right: 5),
+                            child: Text(
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae semper nibh justo, augue commodo suspendisse pharetra turpis. Amet, tempus dui urna amet.",
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroyMedium14)),
+                        Padding(
+                            padding: getPadding(top: 15),
+                            child: Divider(
+                                height: getVerticalSize(1),
+                                thickness: getVerticalSize(1),
+                                color: ColorConstant.blueGray100)),
+                        Padding(
+                            padding: getPadding(top: 20),
+                            child: Text("@ABC",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroySemiBold18)),
+                        Padding(
+                            padding: getPadding(top: 10),
+                            child: Text("23 may 2022, 12:00",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroyMedium14)),
+                        Container(
+                            width: getHorizontalSize(375),
+                            margin: getMargin(top: 11, right: 20),
+                            child: Text(
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Vitae semper nibh justo, augue commodo.",
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroySemiBold16)),
+                        Container(
+                            width: getHorizontalSize(390),
+                            margin: getMargin(top: 6, right: 5),
+                            child: Text(
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae semper nibh justo, augue commodo suspendisse pharetra turpis. Amet, tempus dui urna amet.",
+                                maxLines: null,
+                                textAlign: TextAlign.left,
+                                style: AppStyle.txtGilroyMedium14)),
+                        Padding(
+                            padding: getPadding(top: 46),
+                            child: Divider(
+                                height: getVerticalSize(1),
+                                thickness: getVerticalSize(1),
+                                color: ColorConstant.blueGray100))
+                      ]),
+                ))));
   }
 
   onTapArrowleft1(BuildContext context) {

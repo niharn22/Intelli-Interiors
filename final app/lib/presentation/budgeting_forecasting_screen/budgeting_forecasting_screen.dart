@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
 import 'package:intellijinteriors/presentation/gantt_chart_screen/gantt_chart_screen.dart';
+import 'package:intellijinteriors/presentation/kanban_board_screen/kanban_board_screen.dart';
+import '../ar_screen/ar_screen.dart';
 import '../budgeting_forecasting_screen/widgets/listcheckmark_item_widget.dart';
 import 'package:intellijinteriors/core/app_export.dart';
 import 'package:intellijinteriors/widgets/app_bar/appbar_image.dart';
 import 'package:intellijinteriors/widgets/app_bar/appbar_title.dart';
 import 'package:intellijinteriors/widgets/app_bar/custom_app_bar.dart';
 import 'package:intellijinteriors/widgets/custom_checkbox.dart';
+
+import '../feedback_screen/feedback_screen.dart';
+import '../live_chat_summary_screen/live_chat_summary_screen.dart';
 
 class BudgetingForecastingScreen extends StatelessWidget {
   bool isCheckbox = false;
@@ -37,11 +42,19 @@ class BudgetingForecastingScreen extends StatelessWidget {
             text: "Budgeting & Forecasting",
           ),
           actions: [
-            AppbarImage(
-              height: getSize(24),
-              width: getSize(24),
-              svgPath: ImageConstant.imgNotification,
-              margin: getMargin(left: 16, top: 12, right: 16, bottom: 17),
+            Padding(
+              padding: getPadding(right: 6),
+              child: IconButton(
+                icon: Icon(Icons.camera_enhance),
+                iconSize: 20,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MidasPage()));
+                },
+                color: Colors.white,
+              ),
             ),
           ],
         ),
@@ -69,27 +82,39 @@ class BudgetingForecastingScreen extends StatelessWidget {
                 title: Text('Analytics'),
                 onTap: () {
                   // Implement the action when Analytics is tapped
-                 Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => GanttChartScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => GanttChartScreen()));
                 },
               ),
               ListTile(
-                title: Text('Rooms'),
+                title: Text('Tasks'),
                 onTap: () {
-                  // Implement the action when Rooms is tapped
-                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => KanbanBoardScreen()));
                 },
               ),
-
-               ListTile(
+              ListTile(
                 title: Text('Communication Hub'),
                 onTap: () {
-                  // Implement the action when Rooms is tapped
-                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LiveChatSummaryScreen()));
                 },
               ),
+              ListTile(
+                title: Text('Feedback'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FeedbackScreen()));
+                },
+              )
             ],
           ),
         ),
@@ -101,7 +126,7 @@ class BudgetingForecastingScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
-             children: [
+              children: [
                 Container(
                   height: getVerticalSize(183),
                   width: getHorizontalSize(396),
@@ -143,8 +168,8 @@ class BudgetingForecastingScreen extends StatelessWidget {
                                       "Total Balance:",
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
-                                      style: AppStyle
-                                          .txtGilroyMedium14WhiteA700,
+                                      style:
+                                          AppStyle.txtGilroyMedium14WhiteA700,
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -167,8 +192,7 @@ class BudgetingForecastingScreen extends StatelessWidget {
                                   width: getSize(62),
                                   child: CircularProgressIndicator(
                                     value: 0.5,
-                                    backgroundColor:
-                                        ColorConstant.whiteA70067,
+                                    backgroundColor: ColorConstant.whiteA70067,
                                     color: ColorConstant.whiteA700,
                                   ),
                                 ),
@@ -190,10 +214,9 @@ class BudgetingForecastingScreen extends StatelessWidget {
                                 right: 16,
                                 bottom: 14,
                               ),
-                              decoration: AppDecoration.outlineGray70011
-                                  .copyWith(
-                                borderRadius:
-                                    BorderRadiusStyle.roundedBorder6,
+                              decoration:
+                                  AppDecoration.outlineGray70011.copyWith(
+                                borderRadius: BorderRadiusStyle.roundedBorder6,
                               ),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -204,8 +227,7 @@ class BudgetingForecastingScreen extends StatelessWidget {
                                     "Weekly Budget",
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
-                                    style: AppStyle
-                                        .txtGilroyMedium14Green600,
+                                    style: AppStyle.txtGilroyMedium14Green600,
                                   ),
                                   CustomCheckbox(
                                     width: getHorizontalSize(142),
@@ -230,10 +252,9 @@ class BudgetingForecastingScreen extends StatelessWidget {
                                 right: 16,
                                 bottom: 15,
                               ),
-                              decoration: AppDecoration.outlineGray70011
-                                  .copyWith(
-                                borderRadius:
-                                    BorderRadiusStyle.roundedBorder6,
+                              decoration:
+                                  AppDecoration.outlineGray70011.copyWith(
+                                borderRadius: BorderRadiusStyle.roundedBorder6,
                               ),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -244,8 +265,7 @@ class BudgetingForecastingScreen extends StatelessWidget {
                                     "Total Expenses",
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
-                                    style: AppStyle
-                                        .txtGilroyMedium14Red700,
+                                    style: AppStyle.txtGilroyMedium14Red700,
                                   ),
                                   Padding(
                                     padding: getPadding(top: 9),
@@ -312,11 +332,12 @@ class BudgetingForecastingScreen extends StatelessWidget {
                               SizedBox(width: getHorizontalSize(20)),
                               Expanded(
                                 child: Text(
-                                  
                                   itemName,
                                   textAlign: TextAlign.left,
-                                  style: AppStyle.txtGilroyMedium14Black900.copyWith(
-                                    fontSize: 16, // Adjust the font size as needed
+                                  style: AppStyle.txtGilroyMedium14Black900
+                                      .copyWith(
+                                    fontSize:
+                                        16, // Adjust the font size as needed
                                   ),
                                 ),
                               ),

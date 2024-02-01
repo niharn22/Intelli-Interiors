@@ -39,66 +39,68 @@ class LiveChatSummaryScreen extends StatelessWidget {
             body: Container(
                 width: double.maxFinite,
                 padding: getPadding(left: 16, right: 16),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: getPadding(top: 25),
-                          child: ListView.separated(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              separatorBuilder: (context, index) {
-                                return SizedBox(height: getVerticalSize(25));
-                              },
-                              itemCount: 11,
-                              itemBuilder: (context, index) {
-                                return ListprofileimglargeItemWidget();
-                              })),
-                      Padding(
-                          padding: getPadding(top: 37),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CustomImageView(
-                                    imagePath:
-                                        ImageConstant.imgProfileimglarge50x503,
-                                    height: getSize(50),
-                                    width: getSize(50),
-                                    radius: BorderRadius.circular(
-                                        getHorizontalSize(25)),
-                                    margin: getMargin(top: 1)),
-                                Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Anton Ligon",
-                                                overflow: TextOverflow.ellipsis,
-                                                textAlign: TextAlign.left,
-                                                style: AppStyle
-                                                    .txtGilroySemiBold18Bluegray900),
-                                            Padding(
-                                                padding: getPadding(
-                                                    left: 16, bottom: 7),
-                                                child: Text("25/02/22",
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.right,
-                                                    style: AppStyle
-                                                        .txtGilroyRegular14))
-                                          ]),
-                                      Text("Available",
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.left,
-                                          style: AppStyle
-                                              .txtGilroyRegular14Bluegray300)
-                                    ])
-                              ]))
-                    ]))));
+                child: SingleChildScrollView(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                            padding: getPadding(top: 25),
+                            child: ListView.separated(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                separatorBuilder: (context, index) {
+                                  return SizedBox(height: getVerticalSize(25));
+                                },
+                                itemCount: 11,
+                                itemBuilder: (context, index) {
+                                  return ListprofileimglargeItemWidget();
+                                })),
+                        Padding(
+                            padding: getPadding(top: 37),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomImageView(
+                                      imagePath:
+                                          ImageConstant.imgProfileimglarge50x503,
+                                      height: getSize(50),
+                                      width: getSize(50),
+                                      radius: BorderRadius.circular(
+                                          getHorizontalSize(25)),
+                                      margin: getMargin(top: 1)),
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text("Anton Ligon",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.left,
+                                                  style: AppStyle
+                                                      .txtGilroySemiBold18Bluegray900),
+                                              Padding(
+                                                  padding: getPadding(
+                                                      left: 16, bottom: 7),
+                                                  child: Text("25/02/24",
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      textAlign: TextAlign.center,
+                                                      style: AppStyle
+                                                          .txtGilroyRegular14))
+                                            ]),
+                                        Text("Available",
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                            style: AppStyle
+                                                .txtGilroyRegular14Bluegray300)
+                                      ])
+                                ]))
+                      ]),
+                ))));
   }
 
   onTapArrowleft4(BuildContext context) {

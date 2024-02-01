@@ -5,6 +5,8 @@ import 'package:intellijinteriors/widgets/app_bar/appbar_title.dart';
 import 'package:intellijinteriors/widgets/app_bar/custom_app_bar.dart';
 import 'package:intellijinteriors/widgets/custom_button.dart';
 import 'package:intellijinteriors/widgets/custom_text_form_field.dart';
+
+import '../feedback_collection_screen/feedback_collection_screen.dart';
 // ignore_for_file: must_be_immutable
 
 // ignore_for_file: must_be_immutable
@@ -78,6 +80,12 @@ class FeedbackScreen extends StatelessWidget {
                       CustomButton(
                           height: getVerticalSize(50),
                           text: "Give Feedback",
+                          onTap: () {
+                            Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FeedbackCollectionScreen()));
+                          },
                           margin: getMargin(bottom: 65))
                     ]))));
   }
