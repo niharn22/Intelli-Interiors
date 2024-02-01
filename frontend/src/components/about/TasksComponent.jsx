@@ -43,7 +43,7 @@ const TasksComponent = (props) => {
     if (!task) return
 
     return (
-        <div key={props.idx} className="idea_card flex flex-wrap items-center p-5 py-14 m-auto gap-2">
+        <>
             <div className="priority">{task.priority === 1 ? <p className='text-red-500'>High Priority</p> : task.priority === 2 ? <p className='text-yellow-500'>Low priority</p> : <p className='text-green-500'>Least Priority</p>}</div>
             {/* <Link to="room/ax325"> */}
             <div className='icon__wrapper'>
@@ -77,23 +77,23 @@ const TasksComponent = (props) => {
                         <td className='border text-center border-purple-600 w-1/2'>Cost</td>
                     </tr>
                 </thead>
-                {
-                    task.materials.map((mat, idx) =>
-                        <tbody key={idx} className='w-3/4'>
-                            <tr className='w-ful flex flex-wrap'>
+                <tbody className='w-3/4'>
+                    {
+                        task.materials.map((mat, idx) =>
+                            <tr key={idx} className='w-ful flex flex-wrap'>
                                 <td className='border text-center border-purple-600 w-1/2'>{mat.material_name}</td>
                                 <td className='border text-center border-purple-600 w-1/2'>{mat.material_price}</td>
                             </tr>
-                        </tbody>
-                    )
-                }
+                        )
+                    }
+                </tbody>
             </table>
 
             <br />
             <div className="w-full flex justify-center text-xl">
                 <button onClick={updateTaskValue} className='bg-blue-500 text-white text-xl rounded py-3 px-4'>Update</button>
             </div>
-        </div>
+        </>
     )
 }
 

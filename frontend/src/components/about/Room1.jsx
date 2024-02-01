@@ -64,7 +64,7 @@ const Room1 = () => {
 			}
 		}
 
-		const getInsights = async() => {
+		const getInsights = async () => {
 			try {
 				const response = await axios.get('http://localhost:3300/room/tasks-cost', {
 					params: {
@@ -375,12 +375,14 @@ const Room1 = () => {
 									return a.priority - b.priority; // Sort by priority
 								}).map((task, idx) => {
 									return (
-										<TasksComponent
-											idx={idx}
-											task={task}
-											roomid={roomid}
-											name={user.displayName}
-										/>
+										<div key={idx} className="idea_card flex flex-wrap items-center p-5 py-14 m-auto gap-2">
+											<TasksComponent
+												idx={idx}
+												task={task}
+												roomid={roomid}
+												name={user.displayName}
+											/>
+										</div>
 									)
 								})
 						}
@@ -462,14 +464,14 @@ const Room1 = () => {
 										<div key={priority} className='flex items-center text-md gap-2'>
 											<input
 												type='radio'
-												id={`priority`}
+												id={`priority-${priority}`}
 												name='priority'
 												value={priority}
-												checked={newTask.priority === priority}
+												checked={String(newTask.priority) === String(priority)}
 												onChange={handleTaskChange}
-												className='focus:ring-purple-500 h-4 w-4 text-purple-600 border-gray-300'
+												className='h-4 w-4 text-purple-600 border-gray-300'
 											/>
-											<label htmlFor={`priority-${priority}`} className='ml-2text-gray-700'>
+											<label htmlFor={`priority-${priority}`} className='ml-2 text-gray-700'>
 												{priority}
 											</label>
 										</div>
