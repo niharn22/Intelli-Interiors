@@ -16,74 +16,96 @@ import { auth } from '../../config/Firebase';
 import TasksComponent from './TasksComponent';
 
 const Room1 = () => {
+	const totalBudget = 45000
+
 	const { roomid } = useParams();
 
 	const [tasks, setTasks] = useState([])
 	const [users, setUsers] = useState([])
 
-	const [insights, setInsights] = useState(null)
+	// const [insights, setInsights] = useState(null)
+	const [insights, setInsights] = useState({
+		totalCost: 0,
+		totalTasks: 0,
+		roomCostMap: {},
+	});
+
 
 	const user = useSelector(state => state.user.userInfo)
 
+	const getUserTasks = async () => {
+		if (tasks?.length) return
+
+		try {
+			const response = await axios.get('http://localhost:3300/room/tasks', {
+				params: {
+					email: user.email,
+					room_id: roomid,
+				},
+			});
+
+			setTasks(response.data.tasks)
+
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+
+	const getUsers = async () => {
+		if (users?.length) return
+
+		try {
+			const response = await axios.get('http://localhost:3300/room', {
+				params: {
+					room_id: roomid,
+				},
+			});
+
+			// console.log("res", response.data.room.users)
+
+			setUsers(response.data.room.users)
+		} catch (error) {
+			console.log(error.message)
+		}
+	}
+
+	// const getInsights = async () => {
+	// 	try {
+	// 		const response = await axios.get('http://localhost:3300/room/tasks-cost', {
+	// 			params: {
+	// 				room_id: roomid,
+	// 			},
+	// 		});
+
+	// 		console.log("insights", response.data)
+
+	// 		setInsights(response.data)
+	// 	} catch (error) {
+	// 		toast.error(error.message)
+	// 	}
+	// }
+
+	const getInsights = async () => {
+		try {
+			const response = await axios.get('http://localhost:3300/room/tasks-cost', {
+				params: {
+					room_id: roomid,
+				},
+			});
+
+			console.log(response.data)
+			setInsights(response.data);
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
 	useEffect(() => {
-		if (!roomid) return
-
-		const getUserTasks = async () => {
-			if (tasks?.length) return
-
-			try {
-				const response = await axios.get('http://localhost:3300/room/tasks', {
-					params: {
-						email: user.email,
-						room_id: roomid,
-					},
-				});
-
-				setTasks(response.data.tasks)
-
-			} catch (error) {
-				toast.error(error.message);
-			}
-		}
-
-		const getUsers = async () => {
-			if (users?.length) return
-
-			try {
-				const response = await axios.get('http://localhost:3300/room', {
-					params: {
-						room_id: roomid,
-					},
-				});
-
-				// console.log("res", response.data.room.users)
-
-				setUsers(response.data.room.users)
-			} catch (error) {
-				toast.error(error.message)
-			}
-		}
-
-		const getInsights = async () => {
-			try {
-				const response = await axios.get('http://localhost:3300/room/tasks-cost', {
-					params: {
-						room_id: roomid,
-					},
-				});
-
-				console.log("insights", response.data)
-
-				setInsights(response.data)
-			} catch (error) {
-				toast.error(error.message)
-			}
-		}
-
+		// ... other useEffect code
 		getUserTasks();
 		getUsers();
-		getInsights()
-	}, [user])
+		getInsights();
+	}, [user]);
 
 	const [newTask, setNewTask] = useState({
 		taskName: '',
@@ -128,7 +150,7 @@ const Room1 = () => {
 
 			toast.success(response.data.message)
 		} catch (error) {
-			toast.error(error.message)
+			console.log(error.message)
 		}
 		// You may also want to clear the form after submission
 		// setNewTask({
@@ -178,7 +200,7 @@ const Room1 = () => {
 	};
 
 	const dataTaskManagementSystem = {
-		labels: ['Task 1', 'Task 2', 'Task 3', 'Task 4', 'Task 5'],
+		labels: ['Completed Tasks', 'Remaining Tasks'],
 		datasets: [
 			{
 				label: 'Completion Status',
@@ -187,24 +209,25 @@ const Room1 = () => {
 				borderWidth: 1,
 				hoverBackgroundColor: 'rgba(255,99,132,0.6)',
 				hoverBorderColor: 'rgba(255,99,132,1)',
-				data: [80, 72, 90, 60, 75],
+				data: [insights.completedTasks, insights.totalTasks - insights.completedTasks],
 			},
 		],
 	};
 
 	const dataFamilyMembers = {
-		labels: ['Parent 1', 'Parent 2', 'Child 1', 'Child 2', 'Child 3'],
+		labels: users.map((user, idx) => { return user.firstName }),
 		datasets: [
 			{
-				data: [20, 15, 25, 20, 20],
+				data: users.map((user, idx) => { return user.rooms.length }),
 				backgroundColor: ['red', 'blue', 'green', 'orange', 'purple'],
 				hoverBackgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(255, 206, 86, 0.8)', 'rgba(153, 102, 255, 0.8)'],
 			},
 		],
 	};
 
+
 	const dataCostTracking = {
-		labels: ['Expense 1', 'Expense 2', 'Expense 3', 'Expense 4', 'Expense 5'],
+		labels: ['Total Cost', 'Remaining Budget'],
 		datasets: [
 			{
 				label: 'Amount Spent',
@@ -213,7 +236,7 @@ const Room1 = () => {
 				borderWidth: 1,
 				hoverBackgroundColor: 'rgba(153,102,255,0.6)',
 				hoverBorderColor: 'rgba(153,102,255,1)',
-				data: [200, 150, 300, 180, 250],
+				data: [insights.totalCost, totalBudget - insights.totalCost],
 			},
 		],
 	};
@@ -246,12 +269,17 @@ const Room1 = () => {
 	};
 
 	const dataBudgetAllocation = {
-		labels: ['Design', 'Materials', 'Labor', 'Miscellaneous'],
+		labels: Object.keys(insights.roomCostMap),
 		datasets: [
 			{
-				data: [30, 40, 20, 10],
-				backgroundColor: ['red', 'blue', 'green', 'orange'],
-				hoverBackgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(255, 206, 86, 0.8)'],
+				data: Object.values(insights.roomCostMap),
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.8)',
+					'rgba(54, 162, 235, 0.8)',
+					'rgba(255, 206, 86, 0.8)',
+					'rgba(75, 192, 192, 0.8)',
+					'rgba(153, 102, 255, 0.8)',
+				],
 			},
 		],
 	};
@@ -289,6 +317,20 @@ const Room1 = () => {
 			},
 		},
 	};
+
+
+	useEffect(() => {
+		if(!insights) return;
+
+		if ((totalBudget - insights.totalCost) < 0) {
+			toast("Budget overflowed!", { icon: '💀' })
+			return
+		}
+		if ((totalBudget - insights.totalCost) / (insights.totalCost) * 100 < 5) {
+			toast("Budget is tight! Spend wisely", { icon: '⚠️' })
+		}
+	}, [insights])
+
 	return (
 		<div className='my-10'>
 			<div className="chat-icon-holder">
@@ -297,23 +339,16 @@ const Room1 = () => {
 				</Link>
 			</div>
 			<div className='px-10 flex flex-wrap items-center justify-center'>
-				<div className="flex flex-wrap justify-center">
+				<div className="flex flex-wrap justify-around gap-2">
 					{/* Card 1: Centralized Dashboard */}
-					<div className='text-3xl w-1/2 text-center'> Room Id : {roomid}</div>
-					<p className='text-gray-500 w-full text-center mt-5'>
+					<div className='text-5xl w-1/2 text-center'> Room Id : {roomid}</div>
+					<p className='text-gray-500 w-full text-center mb-5 underline'>
 						Welcome to your room, we help you plan your space well
 					</p>
-					<div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
-						<div className="p-4">
-							<h2 className="text-xl font-bold text-gray-800">
-								Centralized Dashboard
-							</h2>
-							<Bar data={dataCentralizedDashboard} options={options} />
-						</div>
-					</div>
+
 
 					{/* Card 2: Task Management System */}
-					<div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+					<div className="w-1/3 mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
 						<div className="p-4">
 							<h2 className="text-xl font-bold text-gray-800">
 								Task Management System
@@ -323,7 +358,7 @@ const Room1 = () => {
 					</div>
 
 					{/* Card 3: Cost Tracking and Budgeting */}
-					<div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+					<div className="w-1/3 mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
 						<div className="p-4">
 							<h2 className="text-xl font-bold text-gray-800">
 								Cost Tracking and Budgeting
@@ -332,15 +367,23 @@ const Room1 = () => {
 						</div>
 					</div>
 
-					<div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+					<div className="w-1/3 mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
 						<div className="p-4">
 							<h2 className="text-xl font-bold text-gray-800">Budget Allocation</h2>
 							<Doughnut data={{ ...dataBudgetAllocation, datasets: applyPastelColors(dataBudgetAllocation.datasets) }} options={options} />
 						</div>
 					</div>
 
+					{/* // Card for Family Members */}
+					<div className="w-1/3 mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+						<div className="p-4">
+							<h2 className="text-xl font-bold text-gray-800">Family Members</h2>
+							<Pie data={{ ...dataFamilyMembers, datasets: applyPastelColors(dataFamilyMembers.datasets) }} options={options} />
+						</div>
+					</div>
+
 					{/* // Card for Task Progress Over Time */}
-					<div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+					<div className="w-1/3 mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
 						<div className="p-4">
 							<h2 className="text-xl font-bold text-gray-800">Task Progress Over Time</h2>
 							<div className="h-full">
@@ -349,11 +392,12 @@ const Room1 = () => {
 						</div>
 					</div>
 
-					{/* // Card for Family Members */}
-					<div className="max-w-sm mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
+					<div className="w-1/3 mx-4 my-4 bg-white rounded-md shadow-md overflow-hidden">
 						<div className="p-4">
-							<h2 className="text-xl font-bold text-gray-800">Family Members</h2>
-							<Pie data={{ ...dataFamilyMembers, datasets: applyPastelColors(dataFamilyMembers.datasets) }} options={options} />
+							<h2 className="text-xl font-bold text-gray-800">
+								Centralized Dashboard
+							</h2>
+							<Bar data={dataCentralizedDashboard} options={options} />
 						</div>
 					</div>
 
@@ -494,11 +538,13 @@ const Room1 = () => {
 										required
 									>
 										<option value='' disabled>Select an option</option>
-										{users.map((user, index) => (
-											<option key={index} onChange={handleTaskChange} value={user.email}>
-												{user.email}
-											</option>
-										))}
+										{
+											(user?.email) &&
+											users.map((user, index) => (
+												<option key={index} onChange={handleTaskChange} value={user.email}>
+													{user.email}
+												</option>
+											))}
 									</select>
 								</div>
 							}

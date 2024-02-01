@@ -38,12 +38,12 @@ const Header = (props) => {
 	return (
 		<>
 			<header className={(props.notTop ? 'notTop' : '') + (props.onPage === 5 ? 'header__dark' : '')} data-head="top">
-				<div className="logo" style={props.notTop ? { minWidth: '6%', maxWidth: '19rem' } : {}}>
-				<Link>
-						<img src={logo} alt="Application" title='Application' style={props.notTop ? { width: '90%' } : {}} />
-				</Link>
+				<div className="logo" style={props.notTop ? { minWidth: '6%' } : {}}>
+					<Link>
+						<img src={logo} alt="Application" title='Application' style={props.notTop ? { width: '900%' } : {}} />
+					</Link>
 				</div>
-				
+
 
 				<ul className={`navbar${(width < 1200 && !navbarActive) ? ' hide' : ''}`}>
 					<li className={`nav-item ${props.onPage === 1 ? 'activePage' : ''}`}>
@@ -87,6 +87,18 @@ const Header = (props) => {
 									: () => props.setOnPage(4)
 							}
 						>FAQ's</Link>
+					</li>
+
+
+					<li className={`nav-item ${props.onPage === 5 ? 'activePage' : ''}`}>
+						<Link
+							to="shop"
+							onClick={
+								props.onPage === 5
+									? handleCloseNav
+									: () => props.setOnPage(5)
+							}
+						>Shop</Link>
 					</li>
 
 					<li className='nav-item nav-item-auth'>

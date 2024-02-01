@@ -5,8 +5,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useUserAuth } from '../../../context/UserAuthContext'
 import toast from 'react-hot-toast';
 import removeFirebasePrefix from '../../../utility/removeFirebasePrefix';
+import { useNavigate } from 'react-router';
 
 const User = () => {
+    const navigate = useNavigate();
+
     const user = useSelector(state => state.user.userInfo);
 
     const { logOut } = useUserAuth();
@@ -15,7 +18,7 @@ const User = () => {
         try {
             await logOut()
             toast.success("Successfully Logged Out!", {icon: "👋"})
-            window.location.reload()
+            navigate('/')
         } catch (err) {
             toast.error(removeFirebasePrefix(err.message))
         }
