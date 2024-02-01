@@ -35,7 +35,7 @@ function App() {
                 dispatch(appendRoomInfo(response.data.user.rooms))
                 
             } catch (error) {
-                toast.error(error.message);
+                console.log(error.message);
             }
         }
         getUserRooms();

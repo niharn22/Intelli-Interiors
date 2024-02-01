@@ -44,7 +44,7 @@ function Register() {
 
 			// window.location.reload()
 		} catch (err) {
-			toast.error(processMessage(err.message))
+			console.log(processMessage(err.message))
 		} finally {
 			setSubmitButtonDisabled(false);
 		}

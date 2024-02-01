@@ -22,8 +22,7 @@ header {
 
 .logo {
     display: flex;
-    min-width: 20%;
-    max-width: 18rem;
+    min-width: 30%;
     font-family: 'Audiowide';
 }
 
@@ -33,7 +32,7 @@ header .logo {
 }
 
 .logo a:nth-child(1) {
-    width: 30%;
+    width: 50%;
 }
 
 .logo a img {
@@ -207,8 +206,6 @@ header .logo {
     }
 
     .logo {
-        max-width: 15rem;
-        min-width: 30%;
     }
 
     .logo a:nth-child(2) {
@@ -231,8 +228,6 @@ header .logo {
     }
     
     .logo {
-        max-width: 14rem;
-        min-width: 50%;
     }
 
     .hamburger {
