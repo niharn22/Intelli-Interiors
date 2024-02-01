@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
 import 'package:intellijinteriors/presentation/gantt_chart_screen/gantt_chart_screen.dart';
+import 'package:intellijinteriors/presentation/kanban_board_screen/kanban_board_screen.dart';
 import '../ar_screen/ar_screen.dart';
 import '../budgeting_forecasting_screen/widgets/listcheckmark_item_widget.dart';
 import 'package:intellijinteriors/core/app_export.dart';
@@ -9,6 +10,7 @@ import 'package:intellijinteriors/widgets/app_bar/appbar_title.dart';
 import 'package:intellijinteriors/widgets/app_bar/custom_app_bar.dart';
 import 'package:intellijinteriors/widgets/custom_checkbox.dart';
 
+import '../feedback_screen/feedback_screen.dart';
 import '../live_chat_summary_screen/live_chat_summary_screen.dart';
 
 class BudgetingForecastingScreen extends StatelessWidget {
@@ -87,10 +89,12 @@ class BudgetingForecastingScreen extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text('Rooms'),
+                title: Text('Tasks'),
                 onTap: () {
-                  // Implement the action when Rooms is tapped
-                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => KanbanBoardScreen()));
                 },
               ),
               ListTile(
@@ -102,6 +106,15 @@ class BudgetingForecastingScreen extends StatelessWidget {
                           builder: (context) => LiveChatSummaryScreen()));
                 },
               ),
+              ListTile(
+                title: Text('Feedback'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FeedbackScreen()));
+                },
+              )
             ],
           ),
         ),

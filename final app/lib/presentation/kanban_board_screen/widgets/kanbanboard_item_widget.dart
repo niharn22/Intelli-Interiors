@@ -173,7 +173,7 @@ class KanbanboardItemWidget extends StatelessWidget {
                       bottom: 5,
                     ),
                     child: Text(
-                      "12 comments",
+                      "2 comments",
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtGilroyMedium12,

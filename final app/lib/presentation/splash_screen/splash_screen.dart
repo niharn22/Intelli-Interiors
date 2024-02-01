@@ -16,10 +16,17 @@ class SplashScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/images/Splash.jpeg', // Replace with the actual path to your JPEG image
-                height: getVerticalSize(34),
-                width: getHorizontalSize(360),
+              CustomImageView(
+                imagePath: "assets/images/Splash.jpeg", // Adjust the path accordingly
+                height: getVerticalSize(
+                  34,
+                ),
+                width: getHorizontalSize(
+                  360,
+                ),
+                margin: getMargin(
+                  bottom: 5,
+                ),
               ),
             ],
           ),
