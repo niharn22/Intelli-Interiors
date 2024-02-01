@@ -127,4 +127,6 @@ class ImageConstant {
       'assets/images/img_profileimglarge_50x50_7.png';
 
   static String imageNotFound = 'assets/images/image_not_found.png';
+
+  static var imgCamera;
 }
